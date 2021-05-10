@@ -4,9 +4,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Mirror;
 using Battlecars.UI;
+using Battlecars.Player;
 
 namespace Battlecars.Networking
 {
+    [RequireComponent(typeof(PlayerMotor))]
     public class BattlecarsPlayerNet : NetworkBehaviour
     {
         //Player data
@@ -20,12 +22,23 @@ namespace Battlecars.Networking
         private Lobby lobby;
         private bool hasJoinedLobby = false;
 
+        private void Start()
+        {
+            //If we are the local player, set up the movement script
+            //Make sure only the local player can move
+            if (isLocalPlayer)
+            {
+                PlayerMotor playerMotor = gameObject.GetComponent<PlayerMotor>();
+                playerMotor.Setup();
+            }
+        }
+
         private void Update()
         {
             //Determine if we are on the host client
             if (BattlecarsNetworkManager.Instance.IsHost)
             {
-                //Get the lobby 
+                //Get the lobby  if we hgaven't joined
 
                 if (!hasJoinedLobby)
                 {
