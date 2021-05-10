@@ -8,28 +8,25 @@ namespace Battlecars.Networking
 {
     public class BattlecarsNetworkManager : NetworkManager
     {
+        #region Fields
+        public Dictionary<byte, BattlecarsPlayerNet> players = new Dictionary<byte, BattlecarsPlayerNet>();
+
         /// <summary>
         /// A reference to the battlecars version of the network manager singleton.
         /// </summary>
         public static BattlecarsNetworkManager Instance => singleton as BattlecarsNetworkManager;
-
         /// <summary>
         /// Whether or not this Networkmanager is the host
         /// </summary>
         public bool IsHost { get; private set; } = false;
-
-        public BattleCarsNetworkDiscovery discovery;
-
-        public Dictionary<byte, BattlecarsPlayerNet> players = new Dictionary<byte, BattlecarsPlayerNet>();
-
         /// <summary>
         /// Runs only when connecting to an online scene as a host
         /// </summary>
-        /// 
-        public override void OnStartHost()
+        #endregion
+
+        public override void OnStartHost  ()
         {
             IsHost = true;
-            discovery.AdvertiseServer();
         }
 
         /// <summary>
@@ -46,7 +43,7 @@ namespace Battlecars.Networking
         //Custom player spawning system.
         //Runs when a client connects to the server. This function is responsible for creating the player object and placing it in the center.
         //When playeer first joins the server.
-        public override void OnServerAddPlayer(NetworkConnection connection)
+        public override void OnServerAddPlayer (NetworkConnection connection)
         {
             //Give us the next spawn position depending onthe spawnMode
             Transform spawnPos = GetStartPosition();
@@ -93,7 +90,7 @@ namespace Battlecars.Networking
 
         public void AddPlayer(BattlecarsPlayerNet _player)
         {
-            if (!players.ContainsKey(_player.playerID))
+            if(!players.ContainsKey(_player.playerID))
             {
                 players.Add(_player.playerID, _player);
             }
