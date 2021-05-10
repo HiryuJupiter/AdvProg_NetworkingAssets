@@ -12,8 +12,6 @@ namespace Battlecars.UI
     public class LobbyPlayerSlot : MonoBehaviour
     {
         public bool IsTaken => player != null;
-        public BattlecarsPlayerNet Player => player;
-        public bool IsLeft { get; private set; } = false;
 
         [SerializeField]
         private TextMeshProUGUI nameDisplay;
@@ -22,16 +20,8 @@ namespace Battlecars.UI
 
         private BattlecarsPlayerNet player;
 
-        //Set the player in this to the passed player
-        public void AssignPlayer(BattlecarsPlayerNet _player)
-        {
-            player = _player;
-        }
-
-        public void SetSide (bool _left)
-        {
-            IsLeft = _left;
-        }
+        //SEt the player in this to the passed player
+        public void AssignPlayer(BattlecarsPlayerNet _player) => player = _player; 
 
         void Update()
         {
@@ -39,12 +29,8 @@ namespace Battlecars.UI
             playerButton.interactable = IsTaken;
 
             //If the player is set, then display their name, otherwise disoplay "Awaiting Player"
-            nameDisplay.text = IsTaken ? GetPlayerName() : "Awaiting Player"; 
-        }
+            nameDisplay.text = IsTaken ? player.username : "Awaiting Player"; 
 
-        private string GetPlayerName ()
-        {
-            return string.IsNullOrEmpty(player.username) ? $"Player {player.playerID + 1}" : player.username;
         }
     }
 }
