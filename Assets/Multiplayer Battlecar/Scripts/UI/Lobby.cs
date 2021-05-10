@@ -2,19 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Battlecars.Networking;
+using TMPro;
 
 
 namespace Battlecars.UI
 {
     public class Lobby : MonoBehaviour
     {
+        public string LobbyName => lobbyNameInput.text;
+
         private List<LobbyPlayerSlot> leftTeamSlots = new List<LobbyPlayerSlot>();
         private List<LobbyPlayerSlot> rightTeamSlots = new List<LobbyPlayerSlot>();
 
-        [SerializeField]
-        private GameObject leftTeamHolder;
-        [SerializeField]
-        private GameObject rightTeamHolder;
+        [SerializeField] private GameObject leftTeamHolder;
+        [SerializeField] private GameObject rightTeamHolder;
+        [SerializeField] private TMP_InputField lobbyNameInput;
 
         //Flipping bool that determines which column the connected player will be added to
         private bool assigningToLeft = true;

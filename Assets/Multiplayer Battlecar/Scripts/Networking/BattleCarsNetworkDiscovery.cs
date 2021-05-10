@@ -1,5 +1,6 @@
 using System;
 using System.Net;
+using Battlecars.UI;
 using Mirror;
 using Mirror.Discovery;
 using UnityEngine;
@@ -55,7 +56,19 @@ namespace Battlecars.Networking
         [Tooltip("Invoked when a server is found")]
         public ServerFoundEvent onServerFound = new ServerFoundEvent();
 
+        private Lobby lobby;
 
+        //public override void Start()
+        //{
+        //    ServerID = RandomLong();
+
+        //    //If the transport wasn't set in the inspector
+        //    //find the active one. activeTransport is set in awake.
+        //    if (transport == null)
+        //        transport = Transport.activeTransport;
+
+        //    base.Start();
+        //}
         public override void Start()
         {
             ServerID = RandomLong();
@@ -68,6 +81,11 @@ namespace Battlecars.Networking
             base.Start();
         }
 
+        private void Update()
+        {
+            if (lobby = null)
+                lobby = FindObjectOfType<Lobby>();
+        }
 
         ///// <summary>
         ///// Reply to the client to inform it of this server
@@ -78,10 +96,10 @@ namespace Battlecars.Networking
         ///// </remarks>
         ///// <param name="request">Request coming from client</param>
         ///// <param name="endpoint">Address of the client that sent the request</param>
-        //protected override void ProcessClientRequest(DiscoveryRequest request, IPEndPoint endpoint)
-        //{
-        //    base.ProcessClientRequest(request, endpoint);
-        //}
+        protected override void ProcessClientRequest(DiscoveryRequest request, IPEndPoint endpoint)
+        {
+            base.ProcessClientRequest(request, endpoint);
+        }
 
         /// <summary>
         /// Process the request from a client
@@ -103,7 +121,8 @@ namespace Battlecars.Networking
                 return new DiscoveryResponse()
                 {
                     serverID = ServerID,
-                    uri = transport.ServerUri()
+                    uri = transport.ServerUri(),
+                    gameName = lobby.LobbyName
                 };
             }
             catch (NotImplementedException _e)
