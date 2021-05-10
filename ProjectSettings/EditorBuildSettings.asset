@@ -14,7 +14,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Multiplayer Battlecar/Scenes/Gameplay.unity
     guid: 5e7af4bd95ac53a4cb784a9eedf8f6f9
-  - enabled: 1
-    path: Assets/Multiplayer Battlecar/Scenes/InGameMenus.unity
-    guid: 2390d6c3ab15eb645a250fe66e662599
   m_configObjects: {}
