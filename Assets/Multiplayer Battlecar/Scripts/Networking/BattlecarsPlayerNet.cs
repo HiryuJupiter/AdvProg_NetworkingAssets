@@ -7,6 +7,10 @@ namespace Battlecars.Networking
 {
     public class BattlecarsPlayerNet : NetworkBehaviour
     {
+        public string username = ""; //
+
+
+        
 
     }
 }
